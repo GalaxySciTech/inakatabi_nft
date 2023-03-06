@@ -29,11 +29,61 @@
                         </div> -->
                     </div>
                 </div>
-                <button class="btn" type="button">MINT NOW</button>
+                <el-button class="btn" data-mdb-ripple="true" data-mdb-ripple-color="light">MINT NOW</el-button>
+                <!-- <el-button class="btn" :disabled="" :loading="" data-mdb-ripple="true" data-mdb-ripple-color="light" @click="() => {}">MINT NOW</el-button> -->
             </div>
         </div>
     </div>
 </template>
+<script setup>
+import { watch, onMounted, reactive, onBeforeUnmount } from 'vue';
+import { useBlockChain } from '@/stores/blockChainStore';
+import { ElButton, ElMessage } from 'element-plus';
+import { useI18n } from 'vue-i18n';
+import { $hash, $shiftedBy, $shiftedByToBig, $copy, $toFixed, $shiftedByString, $dealTimes, $number, $shiftedByFixed } from '@/utils';
+let timer = null;
+const { t } = useI18n();
+const state = reactive({
+    
+});
+
+const blockChain = useBlockChain();
+watch(
+    () => blockChain.account,
+    () => {
+        init();
+    }
+);
+
+const copy = text => {
+    $copy(text)
+        .then(res => {
+            ElMessage.success(t('copy successfully'));
+        })
+        .catch(e => {
+            ElMessage.error(t('copy failed'));
+        });
+};
+
+const init = async () => {
+    if (blockChain.account && blockChain.chainId) {
+        // if (![1,5].includes(Number(blockChain.chainId))) {
+        //     ElMessage.error({
+        //         message: t('change network'),
+        //         duration: 7000,
+        //     });
+        //     return;
+        // }
+    }
+};
+onBeforeUnmount(() => {
+    clearInterval(timer);
+    timer = null;
+});
+onMounted(() => {
+    init();
+});
+</script>
 <style scoped lang="scss">
 .mint {
     width: 100%;

@@ -3,10 +3,10 @@
         <section>
             <header>FAQ</header>
             <div v-for="(item, index) in state.faq" :key="index" class="line">
-                <div class="top" :class="{ active: state.active === index }" @click="check(index)">
+                <div class="top" :class="{ active: state.active === index }">
                     {{ item.ask }}
-                    <img v-if="state.active === index" src="../../../assets/images/home/icon-minus.png" alt="" />
-                    <img v-else src="../../../assets/images/home/icon-Plus.png" alt="" />
+                    <img v-if="state.active === index" src="../../../assets/images/home/icon-minus.png" alt="" @click="check(index)" />
+                    <img v-else src="../../../assets/images/home/icon-Plus.png" alt="" @click="check(index)" />
                 </div>
                 <div class="cont" :class="{ active: state.active === index }">{{ item.bid }}</div>
             </div>
@@ -61,8 +61,8 @@ const check = index => {
             margin-top: 16px;
             border-radius: 24px;
             overflow: hidden;
-            background: rgba(255, 255, 255, 0.5);
             border: 1px solid #f8e3e2;
+            background: rgba(255, 255, 255, 0.5);
             .top {
                 position: relative;
                 width: 100%;
