@@ -16,7 +16,7 @@
 <script setup>
 import { reactive } from 'vue';
 const state = reactive({
-    active: 1,
+    active: -1,
     faq: [
         { ask: 'What blockchain will InakaTabi reside in?', bid: 'InakaTabi will reside in Ethereum 721.' },
         { ask: 'What is the total supply of InakaTabi?', bid: 'A total of 2,000 unique InakaTabi NFTs are created.' },
