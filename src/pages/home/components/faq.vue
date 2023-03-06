@@ -120,7 +120,7 @@ const check = index => {
             width: 100%;
             padding: 0 16px;
             left: 0;
-            top: -8%;
+            top: -7%;
             header {
                 font-size: 30px;
                 line-height: 34px;
