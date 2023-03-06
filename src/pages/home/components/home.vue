@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <!-- <img src="../../../assets/images/home/homebg-T.png" /> -->
+       
     </div>
 </template>
 <style scoped lang="scss">
@@ -8,6 +8,6 @@
     width: 100%;
     height: 100%;
     background: rgb(150, 181, 255);
-    /* min-height: 100%; */
+    background: url('../../../assets/images/home/visionbg-PC.jpeg') no-repeat center top/cover;
 }
 </style>

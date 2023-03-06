@@ -1,6 +1,6 @@
 <template>
     <div class="version">
-        <div class="">VERSION PAGE</div>
+        <!-- <div class="">VERSION PAGE</div> -->
     </div>
 </template>
 <style scoped lang="scss">
@@ -11,7 +11,6 @@
     justify-content: center;
     align-content: center;
     background: rgb(221, 153, 255);
-    /* background: url('../../../assets/images/home/minting-PC.png') no-repeat;
-    background-size: cover; */
+    background: url('../../../assets/images/home/visionbg-PC.jpeg') no-repeat center top/cover;
 }
 </style>
