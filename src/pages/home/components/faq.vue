@@ -1,10 +1,12 @@
 <template>
     <div class="faq">
         <section>
+            <header>FAQ</header>
             <div v-for="(item, index) in state.faq" :key="index" class="line">
-                <div class="top" :class="{ active: state.active === index }" @click="check(index)">{{ item.ask }} 
-                    <img v-if="state.active === index" src="../../../assets/images/home/icon-minus.png" alt="">
-                    <img v-else src="../../../assets/images/home/icon-Plus.png" alt="">
+                <div class="top" :class="{ active: state.active === index }" @click="check(index)">
+                    {{ item.ask }}
+                    <img v-if="state.active === index" src="../../../assets/images/home/icon-minus.png" alt="" />
+                    <img v-else src="../../../assets/images/home/icon-Plus.png" alt="" />
                 </div>
                 <div class="cont" :class="{ active: state.active === index }">{{ item.bid }}</div>
             </div>
@@ -36,13 +38,24 @@ const check = index => {
     justify-content: center;
     align-content: center;
     background: rgb(124, 155, 215);
-    /* background: url('../../../assets/images/home/minting-PC.png') no-repeat;
-    background-size: cover; */
+    background: url('../../../assets/images/home/faq-mint.png') no-repeat, #ff8080;
+    background-position: 90% bottom;
+    background-size: 140px auto;
     display: flex;
     justify-content: center;
     align-items: center;
     section {
-        width: 70%;
+        width: 60%;
+        position: relative;
+        left: -10%;
+        top: 6%;
+        header {
+            font-size: 64px;
+            line-height: 74px;
+            margin-bottom: 56px;
+            color: #fff;
+            font-weight: 700;
+        }
         .line {
             width: 100%;
             margin-top: 16px;
@@ -69,7 +82,7 @@ const check = index => {
                 color: #000;
                 font-size: 18px;
                 font-weight: 700;
-                img{
+                img {
                     float: right;
                     cursor: pointer;
                     width: 25px;
