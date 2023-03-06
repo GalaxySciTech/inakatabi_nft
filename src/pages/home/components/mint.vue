@@ -86,8 +86,7 @@ onMounted(() => {
 .mint {
     width: 100%;
     height: 100%;
-    background: url('../../../assets/images/home/minting-T.png') no-repeat;
-    background-size: center/cover;
+    background: url('../../../assets/images/home/minting-T.png') no-repeat center top/cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -226,10 +225,10 @@ onMounted(() => {
     }
 
     @media screen and (max-width: 1000px) {
-        background: url('../../../assets/images/home/minting-M.png') no-repeat;
-        background-size: center/cover;
+        background: url('../../../assets/images/home/minting-M.png') no-repeat  center top/cover;
         .content {
             width: 95%;
+            max-width: 650px;
             border-radius: 20px;
             .action {
                 margin: 40px 0 32px;

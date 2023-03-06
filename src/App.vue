@@ -39,7 +39,7 @@ html,
 body {
     width: 100%;
     height: 100%;
-    min-width: 1100px;
+    /* min-width: 100px; */
     @media screen and (max-width: 1000px) {
         min-width: 100%;
     }
