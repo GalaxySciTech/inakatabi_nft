@@ -4,9 +4,6 @@ import { ElMessage } from 'element-plus';
 import 'element-plus/es/components/message/style/css';
 
 import abi_erc20 from './abi_erc20';
-import abi_erc721 from './abi_erc721';
-import abi_glc from './abi_glc';
-import abi_airdrop from './abi_airdrop';
 
 const infra_key = 'https://bsc-dataseed3.ninicoin.io';
 
@@ -33,22 +30,11 @@ export const useBlockChain = defineStore('block-chain-store', {
 
             // base
             contract_address: {
-                56: {
-                    glcContract: '0xf1154100517C7642411D012740010d51fA6F8666',
-                    airdropContract: '0xF0b56a768F07c1055f98166b92947DCD1496598d',
-                    WBNB: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-                    USDT: "0x55d398326f99059fF775485246999027B3197955",
-                    WBNB_USDT: "0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE",
-                    GLC: "0xcc780503e290274cfa8da085528067e259df58f0",
-                    GLC_WBNB: "0x913a16d908c8b028dcae70c3316a9a5304d856cc",
-
-                    GSS: "0x8185f8242d76cfd8afe02955bd42c32411737777",
-                    GSS_USDT: "0x52088a3c88d16baad9fc225d58a9c9038603ca2e",
+                1: {
 
                 },
-                97: {
-                    glcContract: '0x026389d29DA5A85536689d27d958e6dB2BC1234E',
-                    airdropContract: '0xFD1Df4F9B1Ab065E44096149cF45728799c41ed0',
+                5: {
+                    
                 },
             },
 
@@ -101,12 +87,10 @@ export const useBlockChain = defineStore('block-chain-store', {
             this.signer = this.provider.getSigner();
         },
 
-        getGlcContract() {
-            return new ethers.Contract(this.contract_address[this.chainId].glcContract, abi_glc, this.signer);
+        getContract() {
+            // return new ethers.Contract(this.contract_address[this.chainId].glcContract, abi_glc, this.signer);
         },
-        getAirdropContract() {
-            return new ethers.Contract(this.contract_address[this.chainId].airdropContract, abi_airdrop, this.signer);
-        },
+       
 
         async awaitTransactionMined(hash) {
             try {
@@ -126,9 +110,7 @@ export const useBlockChain = defineStore('block-chain-store', {
                 const token = new ethers.Contract(token_address, abi_erc20, this.signer);
                 const result = await token.approve(contract_address, amount);
                 await sleep(15000);
-                console.log('---', result);
                 const res = await this.provider.getTransactionReceipt(result.hash);
-                console.log('res ---', res);
                 if (res.status) {
                     ElMessage({
                         showClose: true,

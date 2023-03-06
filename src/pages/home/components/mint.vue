@@ -90,6 +90,7 @@ onMounted(() => {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 850px;
     .content {
         width: 700px;
         height: auto;
@@ -99,6 +100,8 @@ onMounted(() => {
         -webkit-backdrop-filter: blur(6px);
         backdrop-filter: blur(6px);
         border-radius: 20px;
+        position: relative;
+        top: 7%;
         /* position: absolute; */
         .header {
             position: relative;
@@ -225,7 +228,8 @@ onMounted(() => {
     }
 
     @media screen and (max-width: 1000px) {
-        background: url('../../../assets/images/home/minting-M.png') no-repeat  center top/cover;
+        min-height: 100%;
+        background: url('../../../assets/images/home/minting-M.png') no-repeat center top/cover;
         .content {
             width: 95%;
             max-width: 650px;

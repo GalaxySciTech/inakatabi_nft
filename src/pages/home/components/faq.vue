@@ -44,6 +44,7 @@ const check = index => {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 850px;
     section {
         width: 60%;
         position: relative;
@@ -52,7 +53,7 @@ const check = index => {
         header {
             font-size: 64px;
             line-height: 74px;
-            margin-bottom: 56px;
+            margin-bottom: 46px;
             color: #fff;
             font-weight: 700;
         }
@@ -114,6 +115,7 @@ const check = index => {
         }
     }
     @media screen and (max-width: 1000px) {
+        min-height: 100%;
         section {
             width: 100%;
             padding: 0 16px;
