@@ -5,46 +5,48 @@
 </template>
 
 <script>
-
-import {useBlockChain} from '@/stores/blockChainStore'
+import { useBlockChain } from '@/stores/blockChainStore';
 
 export default {
     name: 'App',
-    
 
     setup() {
-        const blockChain = useBlockChain()
+        const blockChain = useBlockChain();
         return {
-            blockChain
-        }
+            blockChain,
+        };
     },
 
     mounted() {
-        this.blockChain.init_blockChain()
-        this.blockChain.connectWallet()
-        const blockChain = this.blockChain
+        this.blockChain.init_blockChain();
+        this.blockChain.connectWallet();
+        const blockChain = this.blockChain;
         if (window.ethereum) {
-            window.ethereum.on("accountsChanged", async function (accounts) {
-                await blockChain.connectWallet()
-            })
-            window.ethereum.on("chainChanged", (networkIDstring) => {
-                console.log('链切换', networkIDstring)
+            window.ethereum.on('accountsChanged', async function (accounts) {
+                await blockChain.connectWallet();
+            });
+            window.ethereum.on('chainChanged', networkIDstring => {
+                console.log('链切换', networkIDstring);
                 window.location.reload();
-            })
+            });
         }
-    }
-}
+    },
+};
 </script>
 
 <style lang="scss">
-html, body{
+html,
+body {
     width: 100%;
     height: 100%;
-    min-width: 1200px;
+    min-width: 1100px;
+    @media screen and (max-width: 1000px) {
+        min-width: 100%;
+    }
 }
-.containe{
+.containe {
     width: 100%;
     height: 100%;
-    background: #FFFFFF;
+    background: #ffffff;
 }
 </style>

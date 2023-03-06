@@ -2,12 +2,15 @@
     <div class="layout">
         <section>
             <header>
-                <div class="left">
-                    <!-- <img class="menu" @click="openDialog(true)" src="../assets/images/base/menu.png" alt="" /> -->
+                <div class="left" :class="{ hidden: state.open }">
                     <img class="logo" src="../assets/images/base/logo.png" alt="" />
                 </div>
-                <div class="right">
+                <div class="right" :class="{ hidden: state.open }">
                     <!-- <img class="lange" @click="setLange()" src="../assets/images/base/gload.png" alt="" /> -->
+                    <div class="menu" @click="openDialog(true)">
+                        <img src="../assets/images/base/menu.png" alt="" />
+                    </div>
+
                     <div class="nav" :class="{ active: state.active === 'home' }" @click="jump('home')">
                         <img src="../assets/images/base/icon-menu1.png" alt="" />
                         HOME
@@ -24,24 +27,40 @@
                         <img src="../assets/images/base/icon-menu4.png" alt="" />
                         MINT
                     </div>
-                    <div class="address" @click="connectWallet()">{{ !!blockChain.account ? $hash(blockChain.account) : $t('connect wallet') }}</div>
+                    <div class="address" @click="connectWallet()">{{ !!blockChain.account ? $hash(blockChain.account, 4, 6) : $t('connect wallet') }}</div>
                 </div>
 
                 <div class="dialog_menu" v-if="state.open">
                     <div class="mask" @click="openDialog(false)"></div>
                     <div class="main">
                         <div class="header">
-                            <!-- <img src="../assets/images/home/001.png" alt="" /> -->
+                            <img class="logo" src="../assets/images/base/logo.png" alt="" />
+                            <div class="close" @click="openDialog(false)">
+                                <img src="../assets/images/base/close.png" alt="" />
+                            </div>
                         </div>
-                        <div class="lib" @click="jump('')">NFT</div>
-                        <div class="lib" @click="jump('https://www.gliesecoin.org/earn.html')">EARN</div>
-                        <div class="lib" @click="jump('https://www.gliesecoin.org')">WEBSITE</div>
+                        <div class="nav" :class="{ active: state.active === 'home' }" @click="jump('home')">
+                            <img src="../assets/images/base/icon-menu1.png" alt="" />
+                            HOME
+                        </div>
+                        <div class="nav" :class="{ active: state.active === 'version' }" @click="jump('version')">
+                            <img src="../assets/images/base/icon-menu2.png" alt="" />
+                            VISION
+                        </div>
+                        <div class="nav" :class="{ active: state.active === 'faq' }" @click="jump('faq')">
+                            <img src="../assets/images/base/icon-menu3.png" alt="" />
+                            FAQ
+                        </div>
+                        <div class="nav" :class="{ active: state.active === 'mint' }" @click="jump('mint')">
+                            <img src="../assets/images/base/icon-menu4.png" alt="" />
+                            MINT
+                        </div>
 
                         <div class="footers">
-                            <a :href="blockChain.link.tg" target="_blank" rel="noopener noreferrer">
+                            <a :href="blockChain.link.discord" target="_blank" rel="noopener noreferrer">
                                 <img src="../assets/images/base/discord.png" alt="" />
                             </a>
-                            <a :href="blockChain.link.tg" target="_blank" rel="noopener noreferrer">
+                            <a :href="blockChain.link.opensea" target="_blank" rel="noopener noreferrer">
                                 <img src="../assets/images/base/opensea.png" alt="" />
                             </a>
                             <a :href="blockChain.link.tw" target="_blank" rel="noopener noreferrer">
@@ -51,6 +70,17 @@
                     </div>
                 </div>
             </header>
+            <div class="links">
+                <a :href="blockChain.link.discord" target="_blank" rel="noopener noreferrer">
+                    <img src="../assets/images/base/discord.png" alt="" />
+                </a>
+                <a :href="blockChain.link.opensea" target="_blank" rel="noopener noreferrer">
+                    <img src="../assets/images/base/opensea.png" alt="" />
+                </a>
+                <a :href="blockChain.link.tw" target="_blank" rel="noopener noreferrer">
+                    <img src="../assets/images/base/tw.png" alt="" />
+                </a>
+            </div>
             <router-view />
         </section>
     </div>
@@ -71,7 +101,7 @@ export default {
         const { proxy } = getCurrentInstance();
         let state = reactive({
             open: false,
-            active: 'home'
+            active: 'home',
         });
         const blockChain = useBlockChain();
         const openDialog = falg => {
@@ -89,12 +119,11 @@ export default {
         };
         const jump = className => {
             state.active = className;
-            document.querySelector(`.${className}`)
-            .scrollIntoView({
+            state.open = false;
+            document.querySelector(`.${className}`).scrollIntoView({
                 behavior: 'smooth',
                 block: 'start',
             });
-            // state.open = false;
         };
         return {
             t,
@@ -116,9 +145,6 @@ export default {
     height: 100vh;
     width: 100%;
     position: relative;
-    background: url('../assets/images/home/visionbg-PC.png') no-repeat;
-    background-size: 100% 100%;
-    position: relative;
     header {
         width: 100%;
         display: flex;
@@ -132,15 +158,12 @@ export default {
         position: fixed;
         top: 0;
         left: 0;
+        .hidden {
+            display: none !important;
+        }
         .left {
             display: flex;
             align-items: center;
-            .menu {
-                width: 35px;
-                height: 35px;
-                cursor: pointer;
-                margin-right: 15px;
-            }
             .logo {
                 height: 80px;
             }
@@ -149,6 +172,22 @@ export default {
         .right {
             display: flex;
             align-items: center;
+            .menu {
+                display: none;
+                align-items: center;
+                justify-content: center;
+                width: fit-content;
+                height: fit-content;
+                padding: 8px;
+                background: #ff8080;
+                border-radius: 12px;
+                cursor: pointer;
+                margin-right: 14px;
+                img {
+                    width: 24px;
+                    height: 24px;
+                }
+            }
             .lange {
                 width: 30px;
                 height: 30px;
@@ -191,6 +230,34 @@ export default {
                 cursor: pointer;
             }
         }
+
+        @media screen and (max-width: 1000px) {
+            height: 80px;
+            padding: 16px 12px;
+            .left {
+                .logo {
+                    height: 48px;
+                }
+            }
+            .right {
+                .menu {
+                    display: flex;
+                }
+                .nav {
+                    display: none;
+                }
+                .address {
+                    min-width: 80px;
+                    padding: 0 14px;
+                    height: 40px;
+                    line-height: 40px;
+                    border-radius: 20px;
+                    font-size: 16px;
+                    background: linear-gradient(180deg, rgba(#ff8080, 1) 30%, rgba(#f9c8c8, 0.9) 100%);
+                    color: #fff;
+                }
+            }
+        }
     }
     .dialog_menu {
         /* position: sticky; */
@@ -207,24 +274,59 @@ export default {
             height: 100%;
             left: 0;
             top: 0;
-            background: rgba(0, 0, 0, 0.3);
+            /* background: rgba(0, 0, 0, 0.3); */
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(6px);
         }
         .main {
             position: absolute;
-            width: 173px;
+            width: 100%;
             height: 100%;
             left: 0;
             top: 0;
-            background: #040217;
+            padding: 16px;
+            /* background: #040217; */
             .header {
                 width: 100%;
-                /* background: linear-gradient(0deg, #040217 0%, #b0762a 100%); */
-                padding-top: 36px;
-                text-align: center;
                 margin-bottom: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .logo {
+                    height: 48px;
+                }
+                .close {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: fit-content;
+                    height: fit-content;
+                    padding: 12px;
+                    background: #ff8080;
+                    border-radius: 16px;
+                    cursor: pointer;
+                    img {
+                        width: 24px;
+                        height: 24px;
+                    }
+                }
+            }
+            .nav {
+                display: flex;
+                align-items: center;
+                font-size: 20px;
+                line-height: 24px;
+                font-weight: 700;
+                color: #000;
+                cursor: pointer;
+                padding: 16px 8px;
+                margin-bottom: 24px;
+                &.active {
+                    color: #fff;
+                }
                 img {
-                    margin: 0 auto 17px;
-                    width: 95%;
+                    height: 40px;
+                    margin-right: 8px;
                 }
             }
             .lib {
@@ -250,7 +352,7 @@ export default {
                 bottom: 64px;
                 left: 0;
                 width: 100%;
-                padding: 0 40px;
+                padding: 0 120px;
                 display: flex;
                 justify-content: space-between;
                 img {
@@ -259,9 +361,36 @@ export default {
             }
         }
     }
+    .links {
+        display: inline-block;
+        position: fixed;
+        bottom: 64px;
+        right: 0;
+        padding: 14px 20px;
+        background: rgba(255, 255, 255, 0.45);
+        backdrop-filter: blur(6px);
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        z-index: 9;
+        a {
+            display: block;
+            margin-bottom: 20px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+        img {
+            height: 32px;
+        }
+    }
     section {
         height: 100%;
         overflow-y: auto;
+    }
+    @media screen and (max-width: 1000px) {
+        .links {
+            display: none;
+        }
     }
 }
 </style>

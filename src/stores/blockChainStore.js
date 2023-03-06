@@ -53,8 +53,9 @@ export const useBlockChain = defineStore('block-chain-store', {
             },
 
             link: {
-                tg: 'https://t.me/GlieseCoin',
-                tw: 'https://twitter.com/GlieseCoin2050',
+                discord: '',
+                opensea: '',
+                tw: '',
             },
         };
     },

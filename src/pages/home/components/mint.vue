@@ -43,9 +43,7 @@ import { useI18n } from 'vue-i18n';
 import { $hash, $shiftedBy, $shiftedByToBig, $copy, $toFixed, $shiftedByString, $dealTimes, $number, $shiftedByFixed } from '@/utils';
 let timer = null;
 const { t } = useI18n();
-const state = reactive({
-    
-});
+const state = reactive({});
 
 const blockChain = useBlockChain();
 watch(
@@ -88,8 +86,8 @@ onMounted(() => {
 .mint {
     width: 100%;
     height: 100%;
-    background: url('../../../assets/images/home/minting-PC.png') no-repeat;
-    background-size: cover;
+    background: url('../../../assets/images/home/minting-T.png') no-repeat;
+    background-size: center/cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -223,6 +221,50 @@ onMounted(() => {
                 font-size: 18px;
                 font-weight: 700;
                 line-height: 20px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        background: url('../../../assets/images/home/minting-M.png') no-repeat;
+        background-size: center/cover;
+        .content {
+            width: 95%;
+            border-radius: 20px;
+            .action {
+                margin: 40px 0 32px;
+                padding: 0 15px;
+                .top {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    .character {
+                        width: 127px;
+                        height: 290px;
+                        margin-left: 0px;
+                        transform: scaleX(-1);
+                    }
+                    .contents {
+                        height: auto;
+                        padding-top: 18px;
+                        .text-box {
+                            font-size: 14px;
+                            line-height: 20px;
+                        }
+                        .mint-info {
+                            .row {
+                                margin-left: 20px;
+                                margin-bottom: 30px;
+                                div {
+                                    font-size: 18px;
+                                    &.right {
+                                        font-size: 35px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

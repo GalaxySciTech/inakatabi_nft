@@ -66,7 +66,6 @@ const check = index => {
             .top {
                 position: relative;
                 width: 100%;
-                padding: 12px 16px;
                 background: rgba(255, 255, 255, 0.9);
                 border-radius: 16px;
                 border-bottom-left-radius: 0;
@@ -110,6 +109,39 @@ const check = index => {
                     font-size: 18px;
                     opacity: 1;
                     transform: scaleY(1);
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        section {
+            width: 100%;
+            padding: 0 16px;
+            left: 0;
+            top: -8%;
+            header {
+                font-size: 30px;
+                line-height: 34px;
+                margin-bottom: 20px;
+            }
+            .line {
+                margin-top: 14px;
+                border-radius: 16px;
+                .top {
+                    padding: 12px 16px;
+                    border-radius: 16px;
+                    line-height: 24px;
+                    &.active {
+                        border-radius: 16px;
+                    }
+                }
+                .cont {
+                    &.active {
+                        padding: 13px 16px;
+                        height: auto;
+                        font-size: 16px;
+                        line-height: 20px;
+                    }
                 }
             }
         }
