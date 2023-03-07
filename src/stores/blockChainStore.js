@@ -35,7 +35,7 @@ export const useBlockChain = defineStore('block-chain-store', {
                     nftContract: ''
                 },
                 5: {
-                    nftContract: '0x09D4A38297461d1bC227Ba8720c26Db0f4994776'
+                    nftContract: '0x826789F60383E2C0A5437B14046466AC6B26420f'
                 },
             },
 

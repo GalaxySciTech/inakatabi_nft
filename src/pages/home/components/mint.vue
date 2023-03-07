@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <!-- <el-button class="btn" :disabled="disabled" :loading="state.loadding" data-mdb-ripple="true" data-mdb-ripple-color="light" @click="mint()">MINT NOW</el-button> -->
-                <el-button class="btn" :loading="state.loadding" data-mdb-ripple="true" data-mdb-ripple-color="light" @click="mint()">MINT NOW</el-button>
+                <el-button class="btn" :disabled="!state.isSatrtMint" :loading="state.loadding" data-mdb-ripple="true" data-mdb-ripple-color="light" @click="mint()">MINT NOW</el-button>
             </div>
         </div>
     </div>
@@ -43,6 +43,7 @@ import { ElButton, ElMessage } from 'element-plus';
 import { useI18n } from 'vue-i18n';
 // import { MerkleTree } from 'merkletreejs';
 // import keccak256 from 'keccak256';
+import WhiteList from '../whitelist';
 
 import { $hash, $shiftedBy, $filterNumberVal, $shiftedByToBig, $copy, $toFixed, $shiftedByString, $dealTimes, $number, $shiftedByFixed } from '@/utils';
 const Web3 = require('web3');
@@ -53,13 +54,13 @@ let timer = null;
 const web3 = new Web3('');
 const { t } = useI18n();
 const state = reactive({
+    isSatrtMint: false,
     currentIsPublich: false,
     price: '--',
     publichMaxNumber: 2,
     publichMaxNumber: 2,
     ethBalance: 0,
     loadding: false,
-    iswlMinted: true,
     amount: 1,
     publichMintedAmount: '--',
     wlMintedAmount: '--',
@@ -137,22 +138,47 @@ const getBalance = async () => {
     state.ethBalance = $shiftedBy(balance.toString(), -18, 4);
 };
 
-const getPublicStartTime = async () => {
+const getResetData = async () => {
     const contract = blockChain.getContract();
     const publicStartTime = await contract.publicStartTime();
-    state.currentIsPublich = Math.floor(Date.now() / 1000) > publicStartTime.toString();
+    if (Math.floor(Date.now() / 1000) >= publicStartTime.toString()) {
+        const publicEndTime = await contract.publicEndTime();
+        if (Math.floor(Date.now() / 1000) < publicEndTime.toString()) {
+            state.isSatrtMint = true;
+        } else {
+            state.isSatrtMint = false;
+        }
+        state.currentIsPublich = true;
+    } else {
+        const wlStartTime = await contract.wlStartTime();
+        const wlEndTime = await contract.wlEndTime();
+        if (Math.floor(Date.now() / 1000) > wlStartTime.toString() && Math.floor(Date.now() / 1000) < wlEndTime.toString()) {
+            state.isSatrtMint = true;
+        } else {
+            state.isSatrtMint = false;
+        }
+        state.currentIsPublich = false;
+    }
+
     let price;
     if (state.currentIsPublich) {
         price = await contract.publicPrice();
     } else {
         price = await contract.wlPrice();
-        state.iswlMinted = await contract.wlMinted(blockChain.account);
+        // state.iswlMinted = await contract.wlMinted(blockChain.account);
     }
     state.price = $shiftedBy(price.toString(), -18, 6);
-    console.log('publicStartTime', publicStartTime.toString(), new Date(publicStartTime.toString() * 1000));
 };
 
 const getMintedAmout = async () => {
+    // const contract = blockChain.getContract();
+    // const _publichMintedAmount = await contract.publicMinted(blockChain.account);
+    // const _wlMintedAmount = await contract.wlMinted(blockChain.account);
+
+    // console.log('_publichMintedAmount:', _publichMintedAmount, _publichMintedAmount.toString());
+    // console.log('_wlMintedAmount:', _wlMintedAmount, _wlMintedAmount.toString());
+    // state.publichMintedAmount = _publichMintedAmount.toString();
+    // state.wlMintedAmount = _wlMintedAmount.toString();
     state.publichMintedAmount = 0;
     state.wlMintedAmount = 0;
 };
@@ -179,7 +205,7 @@ function address() {
 }
 
 const caleProof = () => {
-    const WhiteList = [blockChain.account, '0x619B75f4D55285741a24b047944FBdF27E49f9d1'];
+    // const WhiteList = [blockChain.account, '0x619B75f4D55285741a24b047944FBdF27E49f9d1'];
 
     const leaves = WhiteList.map(x => keccak256(x));
     // const merkleTree = new MerkleTree(leaves, keccak256);
@@ -209,6 +235,7 @@ const mint = async () => {
         });
         return;
     }
+
     if (state.currentIsPublich && state.publichMintedAmount >= 3) {
         ElMessage({
             showClose: true,
@@ -218,16 +245,37 @@ const mint = async () => {
         });
         return;
     }
-    if (!state.currentIsPublich && state.wlMintedAmount >= 2) {
-        ElMessage({
-            showClose: true,
-            message: '已达到最大私募Mint数量',
-            type: 'error',
-            duration: 2500,
-        });
-        return;
+
+    if (!state.currentIsPublich) {
+        if (WhiteList.indexOf(blockChain.account.toLowerCase()) === -1) {
+            ElMessage({
+                showClose: true,
+                message: '您不在白名单，不能参与私募',
+                type: 'error',
+                duration: 2500,
+            });
+            return;
+        }
+        if (state.wlMintedAmount >= 2) {
+            ElMessage({
+                showClose: true,
+                message: '已达到最大私募Mint数量',
+                type: 'error',
+                duration: 2500,
+            });
+            return;
+        }
     }
-    if(state.price * state.amount > state.ethBalance){
+    // if (!state.currentIsPublich && state.iswlMinted) {
+    //     ElMessage({
+    //         showClose: true,
+    //         message: '您已经Mint过，不能重复Mint',
+    //         type: 'error',
+    //         duration: 2500,
+    //     });
+    //     return;
+    // }
+    if (state.price * state.amount > state.ethBalance) {
         ElMessage({
             showClose: true,
             message: '当前ETH余额不足',
@@ -259,15 +307,16 @@ const mint = async () => {
                 type: 'success',
                 duration: 2500,
             });
-            state.ethBalance= $number(state.ethBalance).minus($number(state.price).multipliedBy(state.amount)).toFixed(4,1);
+            state.ethBalance = $number(state.ethBalance).minus($number(state.price).multipliedBy(state.amount)).toFixed(4, 1);
             if (state.currentIsPublich) {
                 state.publichMintedAmount += state.amount;
             } else {
                 state.wlMintedAmount += state.amount;
+                // state.iswlMinted = true;
             }
             state.amount = 1;
-            getBalance()
-            getMintedAmout()
+            getBalance();
+            getMintedAmout();
         } else {
             ElMessage({
                 showClose: true,
@@ -297,17 +346,15 @@ const init = async () => {
         //     });
         //     return;
         // }
+        console.log('WhiteList', WhiteList);
         caleProof();
         // address();
         getMintedAmout();
         getBalance();
-        getPublicStartTime();
+        getResetData();
     }
 };
-onBeforeUnmount(() => {
-    clearInterval(timer);
-    timer = null;
-});
+onBeforeUnmount(() => {});
 onMounted(() => {
     init();
 });
