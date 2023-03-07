@@ -4,6 +4,7 @@ import { ElMessage } from 'element-plus';
 import 'element-plus/es/components/message/style/css';
 
 import abi_erc20 from './abi_erc20';
+import abi_nft from './abi_nft';
 
 const infra_key = 'https://bsc-dataseed3.ninicoin.io';
 
@@ -31,10 +32,10 @@ export const useBlockChain = defineStore('block-chain-store', {
             // base
             contract_address: {
                 1: {
-
+                    nftContract: ''
                 },
                 5: {
-                    
+                    nftContract: '0x09D4A38297461d1bC227Ba8720c26Db0f4994776'
                 },
             },
 
@@ -88,7 +89,7 @@ export const useBlockChain = defineStore('block-chain-store', {
         },
 
         getContract() {
-            // return new ethers.Contract(this.contract_address[this.chainId].glcContract, abi_glc, this.signer);
+            return new ethers.Contract(this.contract_address[this.chainId].nftContract, abi_nft, this.signer);
         },
        
 

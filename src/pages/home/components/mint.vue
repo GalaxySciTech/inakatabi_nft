@@ -17,11 +17,12 @@
                         <div class="mint-info">
                             <div class="row">
                                 <div>Amount</div>
+                                <!-- <div class="right">1</div> -->
                                 <div class="right">1</div>
                             </div>
                             <div class="row">
                                 <div>Price</div>
-                                <div class="right">FREE</div>
+                                <div class="right">{{ state.price }}</div>
                             </div>
                         </div>
                         <!-- <div id="areaLoading" class="hide">
@@ -29,7 +30,7 @@
                         </div> -->
                     </div>
                 </div>
-                <el-button class="btn" data-mdb-ripple="true" data-mdb-ripple-color="light">MINT NOW</el-button>
+                <el-button class="btn" :loading="state.loadding" data-mdb-ripple="true" data-mdb-ripple-color="light">MINT NOW</el-button>
                 <!-- <el-button class="btn" :disabled="" :loading="" data-mdb-ripple="true" data-mdb-ripple-color="light" @click="() => {}">MINT NOW</el-button> -->
             </div>
         </div>
@@ -40,10 +41,28 @@ import { watch, onMounted, reactive, onBeforeUnmount } from 'vue';
 import { useBlockChain } from '@/stores/blockChainStore';
 import { ElButton, ElMessage } from 'element-plus';
 import { useI18n } from 'vue-i18n';
+// import { MerkleTree } from 'merkletreejs';
+// import keccak256 from 'keccak256';
+
 import { $hash, $shiftedBy, $shiftedByToBig, $copy, $toFixed, $shiftedByString, $dealTimes, $number, $shiftedByFixed } from '@/utils';
+const Web3 = require('web3');
+const { MerkleTree } = require('merkletreejs');
+const keccak256 = require('keccak256');
+
 let timer = null;
+const web3 = new Web3('');
 const { t } = useI18n();
-const state = reactive({});
+const state = reactive({
+    currentIsPublich: false,
+    price: '--',
+    publichMaxNumber: 2,
+    publichMaxNumber: 2,
+    ethBalance: 0,
+    loadding: false,
+    iswlMinted: true,
+    // privateNum: 0,
+    // privateNum: 0,
+});
 
 const blockChain = useBlockChain();
 watch(
@@ -63,6 +82,77 @@ const copy = text => {
         });
 };
 
+const getBalance = async () => {
+    const balance = await blockChain.getBalance('0x0000000000000000000000000000000000000000');
+    state.ethBalance = $shiftedBy(balance.toString(), -18, 6);
+};
+
+const getPublicStartTime = async () => {
+    const contract = blockChain.getContract();
+    const publicStartTime = await contract.publicStartTime();
+    state.currentIsPublich = publicStartTime.toString() >= Math.floor(Date.now() / 1000);
+    let price;
+    if (state.currentIsPublich) {
+        price = await contract.publicPrice();
+    } else {
+        price = await contract.wlPrice();
+        state.iswlMinted = await contract.wlMinted(blockChain.account);
+    }
+    state.price = $shiftedBy(price.toString(), -18, 6);
+    console.log('publicStartTime:::', publicStartTime.toString());
+    console.log('price:::', price, $shiftedBy(price.toString(), -18, 6));
+};
+
+function address() {
+    const params = [
+        // '0xa027d231d6852F8986409DccC58908D83a48169F', 
+        // '0x619B75f4D55285741a24b047944FBdF27E49f9d1'
+        '0xa027d231d6852F8986409DccC58908D83a48169F',
+        '0xd4D75e2eB480D61822B9cA40EB54cb322F08d920',
+        '0xdafea492d9c6733ae3d56b7ed1adb60692c98bc5',
+        '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45',
+        '0x8b8a11755a3f2B9f2cE384bc42Cb25053Eb4FF33',
+        '0xd2Ece3F5A7738E4B14c13C0336E3e879755FCd77'
+    ];
+    let leaves = params.map(x => web3.utils.soliditySha3(web3.utils.toChecksumAddress(x)));
+    let tree = new MerkleTree(leaves, keccak256, { sort: true });
+    let root = tree.getHexRoot();
+    const leaf = web3.utils.soliditySha3('0xa027d231d6852F8986409DccC58908D83a48169F');
+    const proof = tree.getHexProof(leaf);
+    console.log('address leaf::', leaf);
+    console.log('address root::', root);
+    console.log('address proof::', proof);
+}
+
+const mint = async () => {
+    const WhiteList = [
+        // '0xa027d231d6852F8986409DccC58908D83a48169F',
+        // '0x619B75f4D55285741a24b047944FBdF27E49f9d1',
+        '0xa027d231d6852F8986409DccC58908D83a48169F',
+        '0xd4D75e2eB480D61822B9cA40EB54cb322F08d920',
+        '0xdafea492d9c6733ae3d56b7ed1adb60692c98bc5',
+        '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45',
+        '0x8b8a11755a3f2B9f2cE384bc42Cb25053Eb4FF33',
+        '0xd2Ece3F5A7738E4B14c13C0336E3e879755FCd77'
+    ];
+
+    const leaves = WhiteList.map(x => keccak256(x));
+    // const merkleTree = new MerkleTree(leaves, keccak256);
+    const merkleTree = new MerkleTree(leaves, keccak256, { sort: true });
+    const _rootHash = merkleTree.getRoot().toString('hex');
+    const _leaf = keccak256(blockChain.account);
+    const _proof = merkleTree.getProof(_leaf);
+
+    const rootHash = `0x${_rootHash.toString('hex')}`;
+    const leaf = `0x${_leaf.toString('hex')}`;
+    const proof = _proof.map(x => '0x' + x.data.toString('hex'));
+   
+    console.log('leaf', leaf);
+    console.log('rootHash', rootHash);
+
+    console.log('proof', proof);
+};
+
 const init = async () => {
     if (blockChain.account && blockChain.chainId) {
         // if (![1,5].includes(Number(blockChain.chainId))) {
@@ -72,6 +162,10 @@ const init = async () => {
         //     });
         //     return;
         // }
+        mint();
+        // address();
+        getBalance();
+        getPublicStartTime();
     }
 };
 onBeforeUnmount(() => {

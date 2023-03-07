@@ -10,6 +10,7 @@ const i18n = createI18n({
     locale: localStorage.lang || 'en',
 });
 
+global.Buffer = global.Buffer || require('buffer').Buffer
 import './assets/css/tailwind_dist.css';
 import './assets/fonts/font.css';
 import './assets/css/myCss.css';
