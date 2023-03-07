@@ -12,7 +12,9 @@
     align-content: center;
     background: rgb(221, 153, 255);
     
-    background: url('../../../assets/images/home/visionbg-PC.jpeg') no-repeat center top/cover;
+    /* background: url('../../../assets/images/home/visionbg-PC.jpeg') no-repeat center top/cover; */
+    background: url('../../../assets/images/home/visionbg-PC.jpg') no-repeat center;
+    background-size: cover;
     @media screen and (max-width: 1000px) {
         background: url('../../../assets/images/home/visionbg-M.jpeg') no-repeat center top/cover;
     }
