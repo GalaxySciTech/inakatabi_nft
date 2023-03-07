@@ -17,34 +17,34 @@
                         <div class="mint-info">
                             <div class="row">
                                 <div>Amount</div>
-                                <!-- <div class="right">1</div> -->
-                                <div class="right">1</div>
+                                <div class="right publich">
+                                    <div class="minus" @click="handAmount('minus')">-</div>
+                                    <input @keyup="setAmount" v-model.trim="state.amount" class="from-input" type="text" placeholder="0" />
+                                    <div class="plus" @click="handAmount('plus')">+</div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div>Price</div>
                                 <div class="right">{{ state.price }}</div>
                             </div>
                         </div>
-                        <!-- <div id="areaLoading" class="hide">
-                            <img class="mint-loading" src="/images/icon-loading.png" alt="icon loading" />
-                        </div> -->
                     </div>
                 </div>
-                <el-button class="btn" :loading="state.loadding" data-mdb-ripple="true" data-mdb-ripple-color="light">MINT NOW</el-button>
-                <!-- <el-button class="btn" :disabled="" :loading="" data-mdb-ripple="true" data-mdb-ripple-color="light" @click="() => {}">MINT NOW</el-button> -->
+                <!-- <el-button class="btn" :disabled="disabled" :loading="state.loadding" data-mdb-ripple="true" data-mdb-ripple-color="light" @click="mint()">MINT NOW</el-button> -->
+                <el-button class="btn" :loading="state.loadding" data-mdb-ripple="true" data-mdb-ripple-color="light" @click="mint()">MINT NOW</el-button>
             </div>
         </div>
     </div>
 </template>
 <script setup>
-import { watch, onMounted, reactive, onBeforeUnmount } from 'vue';
+import { watch, onMounted, reactive, onBeforeUnmount, computed } from 'vue';
 import { useBlockChain } from '@/stores/blockChainStore';
 import { ElButton, ElMessage } from 'element-plus';
 import { useI18n } from 'vue-i18n';
 // import { MerkleTree } from 'merkletreejs';
 // import keccak256 from 'keccak256';
 
-import { $hash, $shiftedBy, $shiftedByToBig, $copy, $toFixed, $shiftedByString, $dealTimes, $number, $shiftedByFixed } from '@/utils';
+import { $hash, $shiftedBy, $filterNumberVal, $shiftedByToBig, $copy, $toFixed, $shiftedByString, $dealTimes, $number, $shiftedByFixed } from '@/utils';
 const Web3 = require('web3');
 const { MerkleTree } = require('merkletreejs');
 const keccak256 = require('keccak256');
@@ -60,8 +60,9 @@ const state = reactive({
     ethBalance: 0,
     loadding: false,
     iswlMinted: true,
-    // privateNum: 0,
-    // privateNum: 0,
+    amount: 1,
+    publichMintedAmount: '--',
+    wlMintedAmount: '--',
 });
 
 const blockChain = useBlockChain();
@@ -71,6 +72,15 @@ watch(
         init();
     }
 );
+
+const disabled = computed(() => {
+    if (state.publichMintedAmount === '--' || state.wlMintedAmount === '--') return true;
+    if (state.currentIsPublich) {
+        return state.publichMintedAmount >= 3;
+    } else {
+        return state.wlMintedAmount >= 2;
+    }
+});
 
 const copy = text => {
     $copy(text)
@@ -82,15 +92,55 @@ const copy = text => {
         });
 };
 
+const handAmount = type => {
+    let _amount = '';
+    if (state.currentIsPublich) {
+        if (type === 'minus') {
+            _amount = Math.max(state.amount - 1, 1);
+        } else {
+            _amount = Math.min(state.amount + 1, 3 - state.publichMintedAmount);
+        }
+    } else {
+        if (type === 'minus') {
+            _amount = Math.max(state.amount - 1, 1);
+        } else {
+            _amount = Math.min(state.amount + 1, 2 - state.wlMintedAmount);
+        }
+    }
+
+    state.amount = _amount;
+};
+
+const setAmount = e => {
+    const val = e.target.value;
+    if (state.publichMintedAmount === '--' || state.wlMintedAmount === '--') {
+        ElMessage({
+            showClose: true,
+            message: '正在加载数据,稍后重试!!!',
+            type: 'error',
+            duration: 2500,
+        });
+        state.amount = '';
+        return;
+    } else {
+        const amount = $filterNumberVal(val);
+        if (state.currentIsPublich) {
+            state.amount = Math.min(Math.max(amount - 1, 1), 3 - state.publichMintedAmount);
+        } else {
+            state.amount = Math.min(Math.max(amount - 1, 1), 2 - state.wlMintedAmount);
+        }
+    }
+};
+
 const getBalance = async () => {
     const balance = await blockChain.getBalance('0x0000000000000000000000000000000000000000');
-    state.ethBalance = $shiftedBy(balance.toString(), -18, 6);
+    state.ethBalance = $shiftedBy(balance.toString(), -18, 4);
 };
 
 const getPublicStartTime = async () => {
     const contract = blockChain.getContract();
     const publicStartTime = await contract.publicStartTime();
-    state.currentIsPublich = publicStartTime.toString() >= Math.floor(Date.now() / 1000);
+    state.currentIsPublich = Math.floor(Date.now() / 1000) > publicStartTime.toString();
     let price;
     if (state.currentIsPublich) {
         price = await contract.publicPrice();
@@ -99,20 +149,24 @@ const getPublicStartTime = async () => {
         state.iswlMinted = await contract.wlMinted(blockChain.account);
     }
     state.price = $shiftedBy(price.toString(), -18, 6);
-    console.log('publicStartTime:::', publicStartTime.toString());
-    console.log('price:::', price, $shiftedBy(price.toString(), -18, 6));
+    console.log('publicStartTime', publicStartTime.toString(), new Date(publicStartTime.toString() * 1000));
+};
+
+const getMintedAmout = async () => {
+    state.publichMintedAmount = 0;
+    state.wlMintedAmount = 0;
 };
 
 function address() {
     const params = [
-        // '0xa027d231d6852F8986409DccC58908D83a48169F', 
+        // '0xa027d231d6852F8986409DccC58908D83a48169F',
         // '0x619B75f4D55285741a24b047944FBdF27E49f9d1'
         '0xa027d231d6852F8986409DccC58908D83a48169F',
         '0xd4D75e2eB480D61822B9cA40EB54cb322F08d920',
         '0xdafea492d9c6733ae3d56b7ed1adb60692c98bc5',
         '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45',
         '0x8b8a11755a3f2B9f2cE384bc42Cb25053Eb4FF33',
-        '0xd2Ece3F5A7738E4B14c13C0336E3e879755FCd77'
+        '0xd2Ece3F5A7738E4B14c13C0336E3e879755FCd77',
     ];
     let leaves = params.map(x => web3.utils.soliditySha3(web3.utils.toChecksumAddress(x)));
     let tree = new MerkleTree(leaves, keccak256, { sort: true });
@@ -124,17 +178,8 @@ function address() {
     console.log('address proof::', proof);
 }
 
-const mint = async () => {
-    const WhiteList = [
-        // '0xa027d231d6852F8986409DccC58908D83a48169F',
-        // '0x619B75f4D55285741a24b047944FBdF27E49f9d1',
-        '0xa027d231d6852F8986409DccC58908D83a48169F',
-        '0xd4D75e2eB480D61822B9cA40EB54cb322F08d920',
-        '0xdafea492d9c6733ae3d56b7ed1adb60692c98bc5',
-        '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45',
-        '0x8b8a11755a3f2B9f2cE384bc42Cb25053Eb4FF33',
-        '0xd2Ece3F5A7738E4B14c13C0336E3e879755FCd77'
-    ];
+const caleProof = () => {
+    const WhiteList = [blockChain.account, '0x619B75f4D55285741a24b047944FBdF27E49f9d1'];
 
     const leaves = WhiteList.map(x => keccak256(x));
     // const merkleTree = new MerkleTree(leaves, keccak256);
@@ -146,11 +191,101 @@ const mint = async () => {
     const rootHash = `0x${_rootHash.toString('hex')}`;
     const leaf = `0x${_leaf.toString('hex')}`;
     const proof = _proof.map(x => '0x' + x.data.toString('hex'));
-   
+
     console.log('leaf', leaf);
     console.log('rootHash', rootHash);
 
     console.log('proof', proof);
+    return proof;
+};
+
+const mint = async () => {
+    if (state.publichMintedAmount === '--' || state.wlMintedAmount === '--') {
+        ElMessage({
+            showClose: true,
+            message: '正在加载数据,稍后重试!!!',
+            type: 'error',
+            duration: 2500,
+        });
+        return;
+    }
+    if (state.currentIsPublich && state.publichMintedAmount >= 3) {
+        ElMessage({
+            showClose: true,
+            message: '已达到最大公募Mint数量',
+            type: 'error',
+            duration: 2500,
+        });
+        return;
+    }
+    if (!state.currentIsPublich && state.wlMintedAmount >= 2) {
+        ElMessage({
+            showClose: true,
+            message: '已达到最大私募Mint数量',
+            type: 'error',
+            duration: 2500,
+        });
+        return;
+    }
+    if(state.price * state.amount > state.ethBalance){
+        ElMessage({
+            showClose: true,
+            message: '当前ETH余额不足',
+            type: 'error',
+            duration: 2500,
+        });
+        return;
+    }
+    state.loadding = true;
+    try {
+        const contract = blockChain.getContract();
+        const proof = caleProof();
+        const override = {
+            value: $shiftedByToBig(state.price * state.amount, 18),
+        };
+
+        let transaction;
+        if (state.currentIsPublich) {
+            transaction = await contract.publicMint(state.amount, override);
+        } else {
+            transaction = await contract.wlMint(proof, state.amount, override);
+        }
+        const result = await blockChain.awaitTransactionMined(transaction.hash);
+        // const result = true;
+        if (result) {
+            ElMessage({
+                showClose: true,
+                message: 'Mint Successfully',
+                type: 'success',
+                duration: 2500,
+            });
+            state.ethBalance= $number(state.ethBalance).minus($number(state.price).multipliedBy(state.amount)).toFixed(4,1);
+            if (state.currentIsPublich) {
+                state.publichMintedAmount += state.amount;
+            } else {
+                state.wlMintedAmount += state.amount;
+            }
+            state.amount = 1;
+            getBalance()
+            getMintedAmout()
+        } else {
+            ElMessage({
+                showClose: true,
+                message: e?.reason ?? e?.message ?? 'Mint Fail',
+                type: 'error',
+                duration: 2500,
+            });
+        }
+    } catch (e) {
+        ElMessage({
+            showClose: true,
+            message: e?.reason ?? e?.message ?? 'Error',
+            type: 'error',
+            duration: 2500,
+        });
+    } finally {
+        state.loadding = false;
+    }
 };
 
 const init = async () => {
@@ -162,8 +297,9 @@ const init = async () => {
         //     });
         //     return;
         // }
-        mint();
+        caleProof();
         // address();
+        getMintedAmout();
         getBalance();
         getPublicStartTime();
     }
@@ -301,7 +437,33 @@ onMounted(() => {
                                     color: #1f1f1f;
                                     font-size: 40px;
                                     font-weight: 700;
+                                    height: 49px;
                                     line-height: 49px;
+                                    display: flex;
+                                    align-items: center;
+                                    &.publich {
+                                        border: 1px solid #ff8080;
+                                        border-radius: 12px;
+                                        overflow: hidden;
+                                    }
+                                    div {
+                                        width: 49px;
+                                        height: 49px;
+                                        line-height: 45px;
+                                        text-align: center;
+                                        background: #ff8080;
+                                        cursor: pointer;
+                                        font-size: 24px;
+                                    }
+                                    input {
+                                        height: 49px;
+                                        outline: none;
+                                        border: none;
+                                        text-align: center;
+                                        font-size: 18px;
+                                        width: 80px;
+                                        font-weight: 400;
+                                    }
                                 }
                             }
                         }
@@ -356,6 +518,14 @@ onMounted(() => {
                                     font-size: 18px;
                                     &.right {
                                         font-size: 35px;
+                                        div {
+                                            width: 30px;
+                                            height: 100%;
+                                            line-height: 47px;
+                                        }
+                                        input {
+                                            width: 50px;
+                                        }
                                     }
                                 }
                             }
