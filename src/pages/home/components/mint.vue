@@ -325,9 +325,10 @@ const mint = async () => {
             });
         }
     } catch (e) {
+        console.error('error', e)
         ElMessage({
             showClose: true,
-            message: e?.reason ?? e?.message ?? 'Error',
+            message: e?.reason ?? e?.message ?? 'Mint Error',
             type: 'error',
             duration: 2500,
         });
