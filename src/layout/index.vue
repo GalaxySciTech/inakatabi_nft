@@ -153,11 +153,12 @@ export default {
         z-index: 5;
         box-sizing: content-box;
         height: 110px;
-        padding: 30px 20px 0;
+        padding: 10px 20px;
         box-sizing: border-box;
         position: fixed;
         top: 0;
         left: 0;
+        background: linear-gradient(180deg, #DA6EA2 0%, rgba(255, 255, 255, 0.5) 160.06%);
         .hidden {
             display: none !important;
         }
