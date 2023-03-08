@@ -173,9 +173,9 @@ const getResetData = async () => {
 const getMintedAmout = async () => {
     const contract = blockChain.getContract();
     const _wlMintedAmount = await contract.wlMinted(blockChain.account);
-    console.log('_wlMintedAmount:', _wlMintedAmount, _wlMintedAmount.toString());
+    console.log('_wlMintedAmount:', _wlMintedAmount.toString());
     const _publichMintedAmount = await contract.publicMinted(blockChain.account);
-    console.log('_publichMintedAmount:', _publichMintedAmount, _publichMintedAmount.toString());
+    console.log('_publichMintedAmount:', _publichMintedAmount.toString());
     state.publichMintedAmount = _publichMintedAmount.toString();
     state.wlMintedAmount = _wlMintedAmount.toString();
     // state.publichMintedAmount = 0;
