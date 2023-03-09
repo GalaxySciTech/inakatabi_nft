@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <!-- <el-button class="btn" :disabled="disabled" :loading="state.loadding" data-mdb-ripple="true" data-mdb-ripple-color="light" @click="mint()">MINT NOW</el-button> -->
-                <el-button class="btn" :disabled="!state.isSatrtMint" :loading="state.loadding" data-mdb-ripple="true" data-mdb-ripple-color="light" @click="mint()">{{(!state.currentIsPublich && !state.isWhiteList) ? 'NOT WHITE' : 'MINT NOW'}}</el-button>
+                <el-button class="btn" :disabled="!state.isSatrtMint || (!state.currentIsPublich && !state.isWhiteList)" :loading="state.loadding" data-mdb-ripple="true" data-mdb-ripple-color="light" @click="mint()">{{(!state.currentIsPublich && !state.isWhiteList) ? 'NOT WHITE' : 'MINT NOW'}}</el-button>
             </div>
         </div>
     </div>
