@@ -186,7 +186,7 @@ onMounted(() => {
             .cantion {
                 width: 100%;
                 height: auto;
-                padding: 36px 0;
+                padding: 36px 0 10px;
 
                 & > div {
                     width: 100%;
@@ -195,7 +195,7 @@ onMounted(() => {
                     font-size: 24px;
                     padding: 0 60px 0 70px;
                     margin-bottom: 20px;
-                    max-height: 50vh;
+                    max-height: 55vh;
                     overflow-y: auto;
                     & > div {
                         background: linear-gradient(179.97deg, #d71f61 0.02%, #530c32 66.99%);
@@ -246,7 +246,7 @@ onMounted(() => {
                 width: 100%;
                 height: auto;
 
-                padding: 30px 0;
+                padding: 30px 0 10px;
                 text-align: center;
                 & > div {
                     width: 100%;
@@ -255,7 +255,7 @@ onMounted(() => {
                     font-size: 22px;
                     padding: 0 30px;
                     margin-bottom: 20px;
-                    height: 50vh;
+                    height: 55vh;
                     overflow-y: auto;
                     & > div {
                         background: linear-gradient(179.97deg, #d71f61 0.02%, #530c32 66.99%);
@@ -270,6 +270,7 @@ onMounted(() => {
                 }
                 h4 {
                     font-size: 32px;
+                    font-weight: 900;
                 }
             }
         }

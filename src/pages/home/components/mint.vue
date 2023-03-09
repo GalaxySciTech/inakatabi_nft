@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <!-- <el-button class="btn" :disabled="disabled" :loading="state.loadding" data-mdb-ripple="true" data-mdb-ripple-color="light" @click="mint()">MINT NOW</el-button> -->
-                <el-button class="btn" :disabled="!state.isSatrtMint" :loading="state.loadding" data-mdb-ripple="true" data-mdb-ripple-color="light" @click="mint()">MINT NOW</el-button>
+                <el-button class="btn" :disabled="!state.isSatrtMint" :loading="state.loadding" data-mdb-ripple="true" data-mdb-ripple-color="light" @click="mint()">{{(!state.currentIsPublich && !state.isWhiteList) ? 'NOT WHITE' : 'MINT NOW'}}</el-button>
             </div>
         </div>
     </div>
@@ -67,6 +67,7 @@ const state = reactive({
     amount: 1,
     publichMintedAmount: '--',
     wlMintedAmount: '--',
+    isWhiteList: true,
 });
 
 const blockChain = useBlockChain();
@@ -98,6 +99,16 @@ const copy = text => {
 
 const handAmount = type => {
     let _amount = '';
+    if (state.publichMintedAmount === '--' || state.wlMintedAmount === '--'){
+        ElMessage({
+            showClose: true,
+            message: '正在加载数据,稍后重试!!!',
+            type: 'error',
+            duration: 2500,
+        });
+        state.amount = '';
+        return;
+    } 
     if (state.currentIsPublich) {
         if (type === 'minus') {
             _amount = Math.max(state.amount - 1, 1);
@@ -342,16 +353,14 @@ const mint = async () => {
 
 const init = async () => {
     if (blockChain.account && blockChain.chainId) {
-        // if (![1,5].includes(Number(blockChain.chainId))) {
-        //     ElMessage.error({
-        //         message: t('change network'),
-        //         duration: 7000,
-        //     });
-        //     return;
-        // }
-        console.log('WhiteList', WhiteList);
-        caleProof();
-        // address();
+        if (![1,5].includes(Number(blockChain.chainId))) {
+            ElMessage.error({
+                message: '请切换到以太坊网络',
+                duration: 7000,
+            });
+            return;
+        }
+        state.isWhiteList = WhiteList.indexOf(blockChain.account.toLowerCase()) === -1
         getMintedAmout();
         getBalance();
         getResetData();
