@@ -20,9 +20,82 @@
         </div>
         <div class="version">
             <div class="left">
-                
+                <h5>INTRODUCTION</h5>
+                <div class="cantion">
+                    <div>
+                        <div>
+                            <h4>kiss Diary</h4>
+                            <p class="time">November 2022</p>
+                            <p>-KISS girl was born in the designer's mind</p>
+                            <p class="time">January 2023</p>
+                            <p>-The first final draft of KISS girl was released.</p>
+                            <p>-Beryl came up with a project plan using ASMR as the theme.</p>
+                            <p class="time">Feb 2023</p>
+                            <p>-Website completed</p>
+                            <p>-ASMR recording was done.</p>
+                            <p>-Nemo, the artist, worked overtime on the artwork.</p>
+                            <p class="time">Month 2023</p>
+                            <p>- Minting date: March 19</p>
+                            <p>-Mint price.</p>
+                            <p>WLMINT: 0.09</p>
+                            <p>WL price: 0.015</p>
+                            <p>- KISS YOUR DREAM Hypnosis Series NFT</p>
+                            <p>-reveal within 12 hours of release</p>
+                            <p>-Open DC within 3 days after reveal and create holder exclusive area</p>
+                            <p>Provide weekday hypnosis service and weekend bash for all holders</p>
+                            <p>-DC open counseling invoicing area to provide counseling services</p>
+                            <p>Second quarter of 2023</p>
+                            <p>-Release exclusive ASMR software (including Android ios windows)</p>
+                            <p>-Send the first physical peripherals of the project to holders (DHL global delivery)</p>
+                            <p>- Announcing more peripherals for Q2</p>
+                            <p>-Go live with pledge points play</p>
+                            <p class="time">Third quarter of 2023</p>
+                            <p>- Host in 5 cities worldwide</p>
+                            <p>- Delivery of sleep-aid wearables (headphones, bracelets, etc.)</p>
+                            <p>- Digital gift boxes</p>
+                            <p>TBD - in progress</p>
+                            <p>- Web 3.0 sleep communication platform</p>
+                            <p>- Web 3.0 Home Lifestyle Incubator</p>
+                            <p>- KISS YOUR DREAM IP extension</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="right"></div>
+            <div class="right">
+                <h5>INTRODUCTION</h5>
+                <div class="team">
+                    <div class="item">
+                        <img src="../../../assets/images/home/01.png" alt="" />
+                        <p>Beryl</p>
+                        <p>Director</p>
+                    </div>
+                    <div class="item">
+                        <img src="../../../assets/images/home/02.png" alt="" />
+                        <p>Linnys</p>
+                        <p>Director</p>
+                    </div>
+                    <div class="item">
+                        <img src="../../../assets/images/home/03.png" alt="" />
+                        <p>Melo</p>
+                        <p>CMO</p>
+                    </div>
+                    <div class="item">
+                        <img src="../../../assets/images/home/04.png" alt="" />
+                        <p>Nemo</p>
+                        <p>Art Director</p>
+                    </div>
+                    <div class="item">
+                        <img src="../../../assets/images/home/05.png" alt="" />
+                        <p>DairyKid</p>
+                        <p>Sub Artist</p>
+                    </div>
+                    <div class="item">
+                        <img src="../../../assets/images/home/06.png" alt="" />
+                        <p>ADai</p>
+                        <p>Sub Artist</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -35,18 +108,18 @@
         background: url('../../../assets/images/home/homebg-M.png') no-repeat center top/cover;
     } */
     .home-page {
+
         min-height: 100vh;
         width: 100%;
         display: flex;
-        justify-content: center;
         align-items: center;
+        margin-left: 5%;
+        display: none;
 
         section {
             position: relative;
-            left: -20%;
             margin-top: 10%;
-            width: 60%;
-            margin-left: 10%;
+            width: 50%;
             background: rgba(255, 255, 255, 0.7);
             box-shadow: 0px 4px 4px #9b366f, inset 0px 4px 20px rgba(255, 164, 164, 0.56);
             backdrop-filter: blur(2.5px);
@@ -55,25 +128,25 @@
             h5 {
                 background: linear-gradient(90deg, #ff9fd5 6.2%, rgba(255, 255, 255, 0.2) 97.52%);
                 font-weight: 400;
-                font-size: 64px;
-                height: 81px;
-                line-height: 81px;
+                font-size: 34px;
+                height: 60px;
+                line-height: 60px;
                 color: #ffffff;
-                text-indent: 72px;
+                text-indent: 40px;
             }
             .cantion {
                 width: 100%;
                 height: auto;
-                padding: 44px 0;
+                padding: 36px 0;
 
                 & > div {
                     width: 100%;
                     height: auto;
                     font-weight: 400;
-                    font-size: 32px;
-                    padding: 0 60px 0 80px;
+                    font-size: 24px;
+                    padding: 0 60px 0 70px;
                     margin-bottom: 20px;
-                    max-height: 60vh;
+                    max-height: 50vh;
                     overflow-y: auto;
                     & > div {
                         background: linear-gradient(179.97deg, #d71f61 0.02%, #530c32 66.99%);
@@ -84,9 +157,94 @@
                 }
                 p,
                 h4 {
+                    margin-bottom: 8px;
                 }
                 h4 {
                     font-size: 36px;
+                }
+            }
+        }
+    }
+    .version{
+        min-height: 100vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 5%;
+        .left{
+            position: relative;
+            margin-top: 10%;
+            flex: 2;
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0px 4px 4px #9b366f, inset 0px 4px 20px rgba(255, 164, 164, 0.56);
+            backdrop-filter: blur(2.5px);
+            border-radius: 30px;
+            overflow: hidden;
+            h5 {
+                background: linear-gradient(90deg, #ff9fd5 6.2%, rgba(255, 255, 255, 0.2) 97.52%);
+                font-weight: 400;
+                font-size: 38px;
+                height: 90px;
+                line-height: 90px;
+                color: #ffffff;
+                text-indent: 20px;
+            }
+            .cantion {
+                width: 100%;
+                height: auto;
+                
+                padding: 36px 0;
+                text-align: center;
+                & > div {
+                    width: 100%;
+                    height: auto;
+                    font-weight: 400;
+                    font-size: 24px;
+                    padding: 0 30px;
+                    margin-bottom: 20px;
+                    height: 50vh;
+                    overflow-y: auto;
+                    & > div {
+                        background: linear-gradient(179.97deg, #d71f61 0.02%, #530c32 66.99%);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        background-clip: text;
+                    }
+                }
+                p,
+                h4 {
+                    margin-bottom: 8px;
+                }
+                h4 {
+                    font-size: 36px;
+                }
+            }
+        }
+        .right{
+            margin-left: 4%;
+            flex: 1.5;
+            position: relative;
+            margin-top: 10%;
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0px 4px 4px #9b366f, inset 0px 4px 20px rgba(255, 164, 164, 0.56);
+            backdrop-filter: blur(2.5px);
+            border-radius: 30px;
+            overflow: hidden;
+            h5 {
+                background: linear-gradient(90deg, #ff9fd5 6.2%, rgba(255, 255, 255, 0.2) 97.52%);
+                font-weight: 400;
+                font-size: 34px;
+                height: 60px;
+                line-height: 60px;
+                color: #ffffff;
+                text-indent: 40px;
+            }
+            .team{
+                width: 100%;
+                height: 50vh;
+                display: flex;
+                .item{
+                    width: 100%;
                 }
             }
         }
