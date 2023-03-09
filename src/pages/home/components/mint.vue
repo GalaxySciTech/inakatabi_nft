@@ -166,6 +166,7 @@ const getResetData = async () => {
     } else {
         const wlStartTime = await contract.wlStartTime();
         const wlEndTime = await contract.wlEndTime();
+        
         if (Math.floor(Date.now() / 1000) > wlStartTime.toString() && Math.floor(Date.now() / 1000) < wlEndTime.toString()) {
             state.isSatrtMint = true;
         } else {
@@ -356,11 +357,11 @@ const init = async () => {
         if (![1,5].includes(Number(blockChain.chainId))) {
             ElMessage.error({
                 message: '请切换到以太坊网络',
-                duration: 7000,
+                duration: 10000,
             });
             return;
         }
-        state.isWhiteList = WhiteList.indexOf(blockChain.account.toLowerCase()) === -1
+        state.isWhiteList = WhiteList.indexOf(blockChain.account.toLowerCase()) !== -1
         getMintedAmout();
         getBalance();
         getResetData();
