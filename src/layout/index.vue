@@ -158,7 +158,7 @@ export default {
         position: fixed;
         top: 0;
         left: 0;
-        background: linear-gradient(180deg, #DA6EA2 0%, rgba(255, 255, 255, 0.5) 160.06%);
+        background: linear-gradient(180deg, #da6ea2 0%, rgba(255, 255, 255, 0.5) 160.06%);
         .hidden {
             display: none !important;
         }
@@ -202,10 +202,10 @@ export default {
                 line-height: 80px;
                 margin-right: 38px;
                 font-weight: 900;
-                color: #000;
+                color: #fff;
                 cursor: pointer;
                 &.active {
-                    color: #fff;
+                    color: #000;
                 }
                 img {
                     height: 38px;
@@ -220,9 +220,13 @@ export default {
                 /* background: rgba(255, 255, 255, 0.5);
                 border: 1px solid #fff;
                 color: #1f1f1f; */
-                background: linear-gradient(180deg, rgba(246, 74, 129, 0.9) 0%, rgba(255, 150, 183, 0.8) 100%);
-                color: #000;
+                /* background: linear-gradient(180deg, rgba(246, 74, 129, 0.9) 0%, rgba(255, 150, 183, 0.8) 100%); */
+                color: #fff;
                 font-weight: 600;
+
+                background: linear-gradient(180deg, rgba(222, 174, 185, 0.608) 0%, rgba(245, 139, 165, 0.8) 100%);
+                box-shadow: 2px 2px 6px rgba(86, 18, 55, 0.65);
+                backdrop-filter: blur(5px);
 
                 border-radius: 20px;
                 font-size: 16px;
@@ -234,7 +238,7 @@ export default {
 
         @media screen and (max-width: 1000px) {
             height: 80px;
-            padding: 16px 12px;
+            padding: 16px 10px;
             .left {
                 .logo {
                     height: 48px;
@@ -253,7 +257,7 @@ export default {
                     height: 40px;
                     line-height: 40px;
                     border-radius: 20px;
-                    font-size: 16px;
+                    font-size: 14px;
                     background: linear-gradient(180deg, rgba(#ff8080, 1) 30%, rgba(#f9c8c8, 0.9) 100%);
                     color: #fff;
                 }

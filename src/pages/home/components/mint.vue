@@ -2,16 +2,19 @@
     <div class="mint">
         <div class="content">
             <div class="header">
-                <div class="state">
+                <img src="../../../assets/images/base/logo.png" alt="" />
+                <!-- <div class="state">
                     <div class="areaMintStatus">NOT FOR SALE</div>
-                </div>
-                <div class="cont">
+                </div> -->
+                <!-- <div class="cont">
                     <img src="../../../assets/images/home/Logo_Minting.png" alt="" />
-                </div>
+                </div> -->
             </div>
             <div class="action">
                 <div class="top">
-                    <img class="character" src="../../../assets/images/home/faq-mint.png" alt="mint img" />
+                    <div class="character">
+                        <img src="../../../assets/images/home/faq-mint.png" alt="mint img" />
+                    </div>
                     <div class="contents">
                         <div class="text-box">My heart won't stop beating from the fact that I'm in another world!</div>
                         <div class="mint-info">
@@ -325,7 +328,7 @@ const mint = async () => {
             });
         }
     } catch (e) {
-        console.error('error', e)
+        console.error('error', e);
         ElMessage({
             showClose: true,
             message: e?.reason ?? e?.message ?? 'Mint Error',
@@ -371,25 +374,23 @@ onMounted(() => {
     .content {
         width: 700px;
         height: auto;
-        min-height: 500px;
-        background: rgba(255, 255, 255, 0.65);
-        border: 1px solid #fff;
-        -webkit-backdrop-filter: blur(6px);
-        backdrop-filter: blur(6px);
-        border-radius: 20px;
+        min-height: 450px;
+        background: rgba(255, 255, 255, 0.7);
+        box-shadow: 0px 4px 4px #9b366f, inset 0px 4px 20px rgba(255, 164, 164, 0.56);
+        backdrop-filter: blur(25px);
+        border-radius: 30px;
         position: relative;
         top: 7%;
-        /* position: absolute; */
         .header {
             position: relative;
-            background: rgba(255, 255, 255, 0.95);
-            border-top: 1px solid #fff;
-            border-bottom: 1px solid #fff;
-            /* overflow: hidden; */
-            padding: 10px 0;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
-            /* border: 20px; */
+            display: flex;
+            justify-content: end;
+            background: linear-gradient(90deg, #ff9fd5 29.62%, rgba(255, 255, 255, 0.2) 97.52%);
+            border-radius: 30px 30px 0px 0px;
+            img {
+                padding: 10px 23px;
+                height: 82px;
+            }
             .state {
                 position: absolute;
                 top: -5px;
@@ -417,25 +418,33 @@ onMounted(() => {
                 align-items: center;
                 justify-content: center;
                 flex-direction: column;
-                border-top: 1px dashed #c4c4c4;
-                border-bottom: 1px dashed #c4c4c4;
                 img {
                     height: 90px;
                 }
             }
         }
         .action {
-            margin: 40px 0 32px;
-            padding: 0 32px;
+            /* margin: 40px 0 0; */
+            /* padding: 0 32px; */
             .top {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
+                padding: 0 32px;
                 .character {
-                    width: 168px;
+                    width: 268px;
                     height: 318px;
-                    margin-left: 24px;
-                    transform: scaleX(-1);
+                    /* margin-left: 24px; */
+                    /* transform: scaleX(-1); */
+                    position: relative;
+                    img {
+                        position: absolute;
+                        top: -30px;
+                        left: 0;
+                        width: 100%;
+                        z-index: 999;
+                        height: calc(100% + 120px);
+                    }
                 }
                 .contents {
                     height: 318px;
@@ -451,9 +460,10 @@ onMounted(() => {
                         font-weight: 400;
                         line-height: 25px;
                         padding: 8px 16px;
-                        background: #545454;
                         border-radius: 16px;
                         margin-bottom: 40px;
+                        background: #ff9ad6;
+                        box-shadow: 0px 4px 27px rgba(172, 77, 151, 0.25);
                         &::before {
                             content: '';
                             position: absolute;
@@ -462,7 +472,7 @@ onMounted(() => {
                             left: -12px;
                             width: 0px;
                             height: 0px;
-                            border-right: 15px solid #545454;
+                            border-right: 15px solid #ff9ad6;
                             border-top: 18px solid rgba(0, 0, 0, 0);
                             border-bottom: 18px solid rgba(0, 0, 0, 0);
                         }
@@ -475,13 +485,15 @@ onMounted(() => {
                             margin-left: 80px;
                             margin-bottom: 40px;
                             div {
-                                color: #3f3f3f;
-                                font-size: 18px;
+                                font-size: 36px;
+                                color: #b74f87;
+                                font-family: 'Squada One';
+                                /* font-size: 18px; */
                                 font-weight: 400;
-                                line-height: 24px;
+                                line-height: 48px;
                                 text-align: left;
                                 &.right {
-                                    color: #1f1f1f;
+                                    color: rgba(222, 90, 137, 0.85);
                                     font-size: 40px;
                                     font-weight: 700;
                                     height: 49px;
@@ -489,7 +501,7 @@ onMounted(() => {
                                     display: flex;
                                     align-items: center;
                                     &.publich {
-                                        border: 1px solid #ff8080;
+                                        border: 1px solid #ff82cd;
                                         border-radius: 12px;
                                         overflow: hidden;
                                     }
@@ -498,7 +510,7 @@ onMounted(() => {
                                         height: 49px;
                                         line-height: 45px;
                                         text-align: center;
-                                        background: #ff8080;
+                                        background: #ff82cd;
                                         cursor: pointer;
                                         font-size: 24px;
                                     }
@@ -519,13 +531,15 @@ onMounted(() => {
             }
             .btn {
                 width: 100%;
-                padding: 16px;
-                background: #ff8080;
-                border-radius: 15px;
-                color: #1f1f1f;
-                font-size: 18px;
+                background: linear-gradient(269.42deg, #ff82cd 10.2%, rgba(217, 217, 217, 0) 121.81%);
+                border-radius: 0px 0px 30px 30px;
+                font-size: 44px;
+                text-align: center;
+                color: #ffffff;
                 font-weight: 700;
-                line-height: 20px;
+                height: 90px;
+                text-indent: 200px;
+                line-height: 90px;
             }
         }
     }
@@ -536,19 +550,21 @@ onMounted(() => {
         .content {
             width: 95%;
             max-width: 650px;
-            border-radius: 20px;
+            min-height: 350px;
             .action {
-                margin: 40px 0 32px;
-                padding: 0 15px;
                 .top {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
+                    padding: 0 15px;
                     .character {
-                        width: 127px;
-                        height: 290px;
+                        width: 157px;
+                        height: 260px;
                         margin-left: 0px;
-                        transform: scaleX(-1);
+                        img {
+                            top: 0;
+                            height: calc(100% + 6px);
+                        }
                     }
                     .contents {
                         height: auto;
@@ -562,7 +578,7 @@ onMounted(() => {
                                 margin-left: 20px;
                                 margin-bottom: 30px;
                                 div {
-                                    font-size: 18px;
+                                    font-size: 28px;
                                     &.right {
                                         font-size: 35px;
                                         div {
@@ -578,6 +594,15 @@ onMounted(() => {
                             }
                         }
                     }
+                }
+                .btn {
+                    font-size: 38px;
+                    text-align: center;
+                    color: #ffffff;
+                    font-weight: 700;
+                    height: 90px;
+                    text-indent: 0;
+                    line-height: 90px;
                 }
             }
         }
