@@ -142,7 +142,7 @@ const loopTeam = () => {
         } else {
             dom.style.marginLeft = `-${index * 100}%`;
         }
-    }, 5000);
+    }, 3500);
 };
 onMounted(() => {
     setTimeout(() => {
