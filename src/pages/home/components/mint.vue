@@ -113,7 +113,7 @@ const handAmount = type => {
         if (type === 'minus') {
             _amount = Math.max(state.amount - 1, 1);
         } else {
-            _amount = Math.min(state.amount + 1, 3 - state.publichMintedAmount);
+            _amount = Math.min(state.amount + 1, 5 - state.publichMintedAmount - state.wlMintedAmount);
         }
     } else {
         if (type === 'minus') {
