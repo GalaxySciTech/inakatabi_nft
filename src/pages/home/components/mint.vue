@@ -197,27 +197,6 @@ const getMintedAmout = async () => {
     // state.wlMintedAmount = 0;
 };
 
-function address() {
-    const params = [
-        // '0xa027d231d6852F8986409DccC58908D83a48169F',
-        // '0x619B75f4D55285741a24b047944FBdF27E49f9d1'
-        '0xa027d231d6852F8986409DccC58908D83a48169F',
-        '0xd4D75e2eB480D61822B9cA40EB54cb322F08d920',
-        '0xdafea492d9c6733ae3d56b7ed1adb60692c98bc5',
-        '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45',
-        '0x8b8a11755a3f2B9f2cE384bc42Cb25053Eb4FF33',
-        '0xd2Ece3F5A7738E4B14c13C0336E3e879755FCd77',
-    ];
-    let leaves = params.map(x => web3.utils.soliditySha3(web3.utils.toChecksumAddress(x)));
-    let tree = new MerkleTree(leaves, keccak256, { sort: true });
-    let root = tree.getHexRoot();
-    const leaf = web3.utils.soliditySha3('0xa027d231d6852F8986409DccC58908D83a48169F');
-    const proof = tree.getHexProof(leaf);
-    console.log('address leaf::', leaf);
-    console.log('address root::', root);
-    console.log('address proof::', proof);
-}
-
 const caleProof = () => {
     // const WhiteList = [blockChain.account, '0x619B75f4D55285741a24b047944FBdF27E49f9d1'];
 
