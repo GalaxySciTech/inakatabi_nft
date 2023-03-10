@@ -37,9 +37,9 @@
                                 <p>-Nemo, the artist, worked overtime on the artwork.</p>
                                 <p class="time">Month 2023</p>
                                 <p>- Minting date: March 19</p>
-                                <p>-Mint price.</p>
+                                <!-- <p>-Mint price.</p>
                                 <p>WLMINT: 0.09</p>
-                                <p>WL price: 0.015</p>
+                                <p>WL price: 0.015</p> -->
                                 <p>- KISS YOUR DREAM Hypnosis Series NFT</p>
                                 <p>-reveal within 12 hours of release</p>
                                 <p>-Open DC within 3 days after reveal and create holder exclusive area</p>
