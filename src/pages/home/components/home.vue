@@ -7,7 +7,7 @@
                     <div>
                         <div>
                             <p>Kiss Your Dream NFT, a PFP NFT project inspired by sleepless nights and friends plagued by insomnia.</p>
-                            <h4>We will be minting on March 19 !!</h4>
+                            <!-- <h4>We will be minting on March 19 !!</h4> -->
                             <p>Kiss Your Dream NFT is a PFP NFT project, we are a hypnosis focused project, we hope to enable web3 users to have a completely relaxing sleep environment, later we will also launch our sleep app and smart wearable devices for our holders to use for free.</p>
                             <p>Hypnosis and ASMR is a very high quality field with a large group of demanders and audiences. Our vision is to expand our brand into an excellent global community for free communication, quality user experience, and convenient interaction design. With a relaxed atmosphere, we will continue to evolve and adapt, experimenting with different ways to grow our community.</p>
                             <p>Our team members have extensive experience in the art industry and the NFT industry. We cover different forms of art styles, including illustration, pop, comic and pixel art.</p>
@@ -21,11 +21,11 @@
         <div class="version">
             <section>
                 <div class="left">
-                    <h5>INTRODUCTION</h5>
+                    <h5>Kiss Diary</h5>
                     <div class="cantion">
                         <div>
                             <div>
-                                <h4>kiss Diary</h4>
+                                <!-- <h4>kiss Diary</h4> -->
                                 <p class="time">November 2022</p>
                                 <p>-KISS girl was born in the designer's mind</p>
                                 <p class="time">January 2023</p>
@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <div class="right">
-                    <h5>INTRODUCTION</h5>
+                    <h5>TEAM</h5>
                     <div class="team">
                         <div class="team-cont">
                             <div class="item">

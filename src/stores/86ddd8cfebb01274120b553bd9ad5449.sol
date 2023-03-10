@@ -72,7 +72,7 @@ contract DissYourDream is Base721, ReentrancyGuard {
             "Must in time"
         );
         require(
-            publicMinted[_msgSender()] + _num <= 5,
+            publicMinted[_msgSender()] + wlMinted[_msgSender()] + _num <= 5,
             "Wl mint must lower than 2"
         );
         require(msg.value >= publicPrice * _num, "Must greater than value");

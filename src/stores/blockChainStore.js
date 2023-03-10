@@ -54,7 +54,7 @@ export const useBlockChain = defineStore('block-chain-store', {
             if (!window.ethereum) {
                 ElMessage({
                     showClose: true,
-                    message: 'Metamask未安装',
+                    message: 'Metamask is not installed',
                     type: 'error',
                     duration: 2000,
                 });
@@ -115,7 +115,7 @@ export const useBlockChain = defineStore('block-chain-store', {
                 if (res.status) {
                     ElMessage({
                         showClose: true,
-                        message: '授权成功',
+                        message: 'Authorization successful',
                         type: 'success',
                         duration: 2500,
                     });
@@ -126,7 +126,7 @@ export const useBlockChain = defineStore('block-chain-store', {
             } catch (e) {
                 ElMessage({
                     showClose: true,
-                    message: e?.reason ?? e?.message ?? '授权失败',
+                    message: e?.reason ?? e?.message ?? 'Authorization failed',
                     type: 'error',
                     duration: 2500,
                 });

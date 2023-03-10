@@ -102,7 +102,7 @@ const handAmount = type => {
     if (state.publichMintedAmount === '--' || state.wlMintedAmount === '--'){
         ElMessage({
             showClose: true,
-            message: '正在加载数据,稍后重试!!!',
+            message: 'Loading data, try again later!!!',
             type: 'error',
             duration: 2500,
         });
@@ -131,7 +131,7 @@ const setAmount = e => {
     if (state.publichMintedAmount === '--' || state.wlMintedAmount === '--') {
         ElMessage({
             showClose: true,
-            message: '正在加载数据,稍后重试!!!',
+            message: 'Loading data, try again later!!!',
             type: 'error',
             duration: 2500,
         });
@@ -222,7 +222,7 @@ const mint = async () => {
     if (state.publichMintedAmount === '--' || state.wlMintedAmount === '--') {
         ElMessage({
             showClose: true,
-            message: '正在加载数据,稍后重试!!!',
+            message: 'Loading data, try again later!!!',
             type: 'error',
             duration: 2500,
         });
@@ -232,7 +232,7 @@ const mint = async () => {
     if (state.currentIsPublich && state.publichMintedAmount >= 3) {
         ElMessage({
             showClose: true,
-            message: '已达到最大公募Mint数量',
+            message: 'The maximum amount of public offering Mint has been reached',
             type: 'error',
             duration: 2500,
         });
@@ -243,7 +243,7 @@ const mint = async () => {
         if (WhiteList.indexOf(blockChain.account.toLowerCase()) === -1) {
             ElMessage({
                 showClose: true,
-                message: '您不在白名单，不能参与私募',
+                message: 'You are not on the whitelist and cannot participate in private placement',
                 type: 'error',
                 duration: 2500,
             });
@@ -252,7 +252,7 @@ const mint = async () => {
         if (state.wlMintedAmount >= 2) {
             ElMessage({
                 showClose: true,
-                message: '已达到最大私募Mint数量',
+                message: 'Reached the maximum number of private placement Mint',
                 type: 'error',
                 duration: 2500,
             });
@@ -271,7 +271,7 @@ const mint = async () => {
     if (state.price * state.amount > state.ethBalance) {
         ElMessage({
             showClose: true,
-            message: '当前ETH余额不足',
+            message: 'The current ETH balance is insufficient',
             type: 'error',
             duration: 2500,
         });
@@ -335,7 +335,7 @@ const init = async () => {
     if (blockChain.account && blockChain.chainId) {
         if (![1,5].includes(Number(blockChain.chainId))) {
             ElMessage.error({
-                message: '请切换到以太坊网络',
+                message: 'Please switch to the Ethereum network',
                 duration: 10000,
             });
             return;
