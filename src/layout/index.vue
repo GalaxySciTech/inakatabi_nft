@@ -204,6 +204,7 @@ export default {
                 font-weight: 900;
                 color: #fff;
                 cursor: pointer;
+                font-family: BalooBhainaRegular;
                 &.active {
                     color: #000;
                 }

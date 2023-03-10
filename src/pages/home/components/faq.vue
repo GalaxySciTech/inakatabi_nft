@@ -18,11 +18,11 @@ import { reactive } from 'vue';
 const state = reactive({
     active: -1,
     faq: [
-        { ask: 'What blockchain will InakaTabi reside in?', bid: 'InakaTabi will reside in Ethereum 721.' },
-        { ask: 'What is the total supply of InakaTabi?', bid: 'A total of 2,000 unique InakaTabi NFTs are created.' },
-        { ask: 'When will InakaTabi be released?', bid: 'Expected on December. The detailed schedule will be announced on Twitter.' },
-        { ask: 'How much is the mint for InakaTabi?', bid: 'You can issue 1 free of charge per wallet.' },
-        { ask: 'Community User Engagement Storytelling', bid: 'Users can participate in InakaTabi’s storytelling through the community. InakaTabi aims to draw a vision together with users.' },
+        { ask: 'What is Kiss Your Dreams?', bid: 'Kiss Your Dreams is an NFT project with a total of 3,333 unique Kiss Your Dreams NFTs We are an ASMR focused project that hopes to enable web3 users to have a completely relaxing sleep environment' },
+        { ask: 'Which chain and contract are we using?', bid: 'We are using the Ethereum blockchain, and our main collection will be using the ERC-721 contract' },
+        { ask: 'How many mints per wallet?', bid: 'Our whitelist users can cast 2 NFTs for each wallet and enjoy the whitelist price. The remaining unsold inventory (including 888 NFTs in the public coinage plan) in the white list coinage process will be used for public coinage. Each wallet can cast up to 3 NFTs, and the project party reserves 333 as the demand for later activities and lock-in' },
+        { ask: 'What are our future plans/roadmap?', bid: 'Please refer to the diary sheet page of our website' },
+        { ask: 'When will Kiss Your Dream  be released?', bid: 'Expected in March. A detailed schedule will be announced on Twitter' },
     ],
 });
 
@@ -38,9 +38,9 @@ const check = index => {
     justify-content: center;
     align-content: center;
     background: rgb(124, 155, 215);
-    background: url('../../../assets/images/home/faq-mint.png') no-repeat, #ff8080;
-    background-position: 90% bottom;
-    background-size: 140px auto;
+    background: url('../../../assets/images/home/faq_bg.jpg') no-repeat, #ff8080;
+    /* background-position: 90% bottom; */
+    background-size: 100% 100%;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -25,7 +25,7 @@
                     <div class="cantion">
                         <div>
                             <div>
-                                <!-- <h4>kiss Diary</h4> -->
+                                <h4>kiss Diary</h4>
                                 <p class="time">November 2022</p>
                                 <p>-KISS girl was born in the designer's mind</p>
                                 <p class="time">January 2023</p>
@@ -44,14 +44,14 @@
                                 <p>-reveal within 12 hours of release</p>
                                 <p>-Open DC within 3 days after reveal and create holder exclusive area</p>
                                 <p>Provide weekday hypnosis service and weekend bash for all holders</p>
-                                <p>-DC open counseling invoicing area to provide counseling services</p>
+                                <p>-DC open psychological consultation service</p>
                                 <p>Second quarter of 2023</p>
                                 <p>-Release exclusive ASMR software (including Android ios windows)</p>
                                 <p>-Send the first physical peripherals of the project to holders (DHL global delivery)</p>
                                 <p>- Announcing more peripherals for Q2</p>
                                 <p>-Go live with pledge points play</p>
                                 <p class="time">Third quarter of 2023</p>
-                                <p>- Host in 5 cities worldwide</p>
+                                <p>-- Host &lt;KISS YOUR DREAM Insomniacs Communication Party> in 5 cities around the world</p>
                                 <p>- Delivery of sleep-aid wearables (headphones, bracelets, etc.)</p>
                                 <p>- Digital gift boxes</p>
                                 <p>TBD - in progress</p>

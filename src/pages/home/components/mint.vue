@@ -355,7 +355,7 @@ onMounted(() => {
 .mint {
     width: 100%;
     height: 100%;
-    background: url('../../../assets/images/home/minting-T.png') no-repeat center top/cover;
+    background: url('../../../assets/images/home/minting-PC.png') no-repeat center top/cover;
     display: flex;
     justify-content: center;
     align-items: center;

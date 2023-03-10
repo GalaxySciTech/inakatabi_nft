@@ -40,9 +40,9 @@ export const useBlockChain = defineStore('block-chain-store', {
             },
 
             link: {
-                discord: '',
-                opensea: '',
-                tw: '',
+                discord: 'https://twitter.com/KissUrDream',
+                opensea: 'https://twitter.com/KissUrDream',
+                tw: 'https://twitter.com/KissUrDream',
             },
         };
     },
