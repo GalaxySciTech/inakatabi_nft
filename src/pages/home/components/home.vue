@@ -2,7 +2,7 @@
     <div class="home">
         <div class="home-page">
             <section>
-                <h5>INTRODUCTION</h5>
+                <h5 style="font-family: BalooBhainaRegular;">INTRODUCTION</h5>
                 <div class="cantion">
                     <div>
                         <div>
@@ -21,11 +21,11 @@
         <div class="version">
             <section>
                 <div class="left">
-                    <h5>Kiss Diary</h5>
+                    <h5 style="font-family: BalooBhainaRegular;">Kiss Diary</h5>
                     <div class="cantion">
                         <div>
                             <div>
-                                <h4>kiss Diary</h4>
+                                <!-- <h4>kiss Diary</h4> -->
                                 <p class="time">November 2022</p>
                                 <p>-KISS girl was born in the designer's mind</p>
                                 <p class="time">January 2023</p>
@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <div class="right">
-                    <h5>TEAM</h5>
+                    <h5 style="font-family: BalooBhainaRegular;">TEAM</h5>
                     <div class="team">
                         <div class="team-cont">
                             <div class="item">

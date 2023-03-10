@@ -1,7 +1,7 @@
 <template>
     <div class="faq">
         <section>
-            <header>FAQ</header>
+            <header style="font-family: BalooBhainaRegular;">FAQ</header>
             <div v-for="(item, index) in state.faq" :key="index" class="line">
                 <div class="top" :class="{ active: state.active === index }">
                     {{ item.ask }}
