@@ -48,7 +48,7 @@ import { useI18n } from 'vue-i18n';
 // import keccak256 from 'keccak256';
 import WhiteList from '../whitelist';
 
-import { $hash, $shiftedBy, $filterNumberVal, $shiftedByToBig, $copy, $toFixed, $shiftedByString, $dealTimes, $number, $shiftedByFixed } from '@/utils';
+import { $hash, $shiftedBy, $filterNumberVal, $shiftedByToBig, $toFixed, $shiftedByString, $dealTimes, $number, $shiftedByFixed } from '@/utils';
 const Web3 = require('web3');
 const { MerkleTree } = require('merkletreejs');
 const keccak256 = require('keccak256');
@@ -75,25 +75,6 @@ watch(
         init();
     }
 );
-
-const disabled = computed(() => {
-    if (state.publichMintedAmount === '--' || state.wlMintedAmount === '--') return true;
-    if (state.currentIsPublich) {
-        return state.publichMintedAmount >= 3;
-    } else {
-        return state.wlMintedAmount >= 2;
-    }
-});
-
-const copy = text => {
-    $copy(text)
-        .then(res => {
-            ElMessage.success(t('copy successfully'));
-        })
-        .catch(e => {
-            ElMessage.error(t('copy failed'));
-        });
-};
 
 const handAmount = type => {
     let _amount = '';
