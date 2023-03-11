@@ -104,7 +104,7 @@ const handAmount = type => {
             type: 'error',
             duration: 2500,
         });
-        state.amount = '';
+        state.amount = 1;
         return;
     } 
     if (state.currentIsPublich) {
@@ -133,12 +133,12 @@ const setAmount = e => {
             type: 'error',
             duration: 2500,
         });
-        state.amount = '';
+        state.amount = 1;
         return;
     } else {
         const amount = $filterNumberVal(val);
         if (state.currentIsPublich) {
-            state.amount = Math.min(Math.max(amount - 1, 1), 3 - state.publichMintedAmount);
+            state.amount = Math.min(Math.max(amount - 1, 1), 5 - state.publichMintedAmount - state.wlMintedAmount);
         } else {
             state.amount = Math.min(Math.max(amount - 1, 1), 2 - state.wlMintedAmount);
         }
