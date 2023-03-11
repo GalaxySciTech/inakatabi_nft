@@ -60,8 +60,6 @@ const state = reactive({
     isSatrtMint: false,
     currentIsPublich: false,
     price: '--',
-    publichMaxNumber: 2,
-    publichMaxNumber: 2,
     ethBalance: 0,
     loadding: false,
     amount: 1,
@@ -229,7 +227,7 @@ const mint = async () => {
         return;
     }
 
-    if (state.currentIsPublich && state.publichMintedAmount >= 3) {
+    if (state.currentIsPublich && state.publichMintedAmount + state.wlMintedAmount >= 5) {
         ElMessage({
             showClose: true,
             message: 'The maximum amount of public offering Mint has been reached',
