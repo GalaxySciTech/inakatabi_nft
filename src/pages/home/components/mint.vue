@@ -170,8 +170,8 @@ const getMintedAmout = async () => {
     console.log('_wlMintedAmount:', _wlMintedAmount.toString());
     const _publichMintedAmount = await contract.publicMinted(blockChain.account);
     console.log('_publichMintedAmount:', _publichMintedAmount.toString());
-    state.publichMintedAmount = _publichMintedAmount.toString();
-    state.wlMintedAmount = _wlMintedAmount.toString();
+    state.publichMintedAmount = Number(_publichMintedAmount.toString());
+    state.wlMintedAmount = Number(_wlMintedAmount.toString());
     // state.publichMintedAmount = 0;
     // state.wlMintedAmount = 0;
 };
@@ -208,7 +208,9 @@ const mint = async () => {
         return;
     }
 
-    if (state.currentIsPublich && state.publichMintedAmount + state.wlMintedAmount >= 5) {
+    console.log('currentIsPublich', state.currentIsPublich)
+    console.log('currentIsPublich', state.publichMintedAmount + state.wlMintedAmount)
+    if (state.currentIsPublich && Number(state.publichMintedAmount) + Number(state.wlMintedAmount) >= 5) {
         ElMessage({
             showClose: true,
             message: 'The maximum amount of public offering Mint has been reached',
@@ -228,7 +230,7 @@ const mint = async () => {
             });
             return;
         }
-        if (state.wlMintedAmount >= 2) {
+        if (Number(state.wlMintedAmount) >= 2) {
             ElMessage({
                 showClose: true,
                 message: 'Reached the maximum number of private placement Mint',
@@ -247,7 +249,7 @@ const mint = async () => {
     //     });
     //     return;
     // }
-    if (state.price * state.amount > state.ethBalance) {
+    if ($number(state.price).multipliedBy(state.amount).gt(state.ethBalance)) {
         ElMessage({
             showClose: true,
             message: 'The current ETH balance is insufficient',
