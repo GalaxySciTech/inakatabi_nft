@@ -27,7 +27,7 @@
                         <img src="../assets/images/base/icon-menu4.png" alt="" />
                         MINT
                     </div>
-                    <div class="address" @click="connectWallet()">{{ !!blockChain.account ? $hash(blockChain.account, 4, 6) : 'connect' }}</div>
+                    <div class="address" @click="connectWallet()">{{ !!blockChain.account ? $hash(blockChain.account, 4, 6) : 'connect wallet' }}</div>
                 </div>
 
                 <div class="dialog_menu" v-if="state.open">
@@ -242,7 +242,7 @@ export default {
             padding: 16px 10px;
             .left {
                 .logo {
-                    height: 48px;
+                    height: 36px;
                 }
             }
             .right {
