@@ -27,7 +27,7 @@
                         <img src="../assets/images/base/icon-menu4.png" alt="" />
                         MINT
                     </div>
-                    <div class="address" @click="connectWallet()">{{ !!blockChain.account ? $hash(blockChain.account, 4, 6) : $t('connect wallet') }}</div>
+                    <div class="address" @click="connectWallet()">{{ !!blockChain.account ? $hash(blockChain.account, 4, 6) : 'connect' }}</div>
                 </div>
 
                 <div class="dialog_menu" v-if="state.open">
