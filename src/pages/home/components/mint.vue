@@ -1,5 +1,5 @@
 <template>
-    <div class="mint">
+    <div class="mint BalooBhainaRegular">
         <div class="content">
             <div class="header">
                 <img src="../../../assets/images/base/logo.png" alt="" />
@@ -16,7 +16,7 @@
                         <img src="../../../assets/images/home/faq-mint.png" alt="mint img" />
                     </div>
                     <div class="contents">
-                        <div class="text-box">My heart won't stop beating from the fact that I'm in another world!</div>
+                        <div class="text-box">Love me? Eagerly looking forward to meeting you someday</div>
                         <div class="mint-info">
                             <div class="row">
                                 <div>Amount</div>
@@ -422,7 +422,6 @@ onMounted(() => {
                         right: -12px;
                         width: 100%;
                         width: calc(100% - 12px);
-                        font-family: 'Single Day';
                         color: #fff;
                         font-size: 20px;
                         font-weight: 400;
@@ -455,7 +454,6 @@ onMounted(() => {
                             div {
                                 font-size: 36px;
                                 color: #b74f87;
-                                font-family: 'Squada One';
                                 /* font-size: 18px; */
                                 font-weight: 400;
                                 line-height: 48px;
