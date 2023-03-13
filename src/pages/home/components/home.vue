@@ -36,7 +36,7 @@
                                 <p>-ASMR recording was done.</p>
                                 <p>-Nemo, the artist, worked overtime on the artwork.</p>
                                 <p class="time">Month 2023</p>
-                                <p>- Minting date: March 19</p>
+                                <p>- Minting date: March 22</p>
                                 <!-- <p>-Mint price.</p>
                                 <p>WLMINT: 0.09</p>
                                 <p>WL price: 0.015</p> -->
